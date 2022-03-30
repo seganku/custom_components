@@ -273,8 +273,8 @@ void ST7796TFT24::initialize() {
 }
 void ST7796WT32::initialize() {
   this->init_lcd_(INITCMD_TFT);
-  this->width_ = 480;
-  this->height_ = 320;
+  this->width_ = 320;
+  this->height_ = 240;
   this->fill_internal_(Color::BLACK);
 }
 
