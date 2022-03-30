@@ -12,7 +12,7 @@ namespace st7796 {
 enum ST7796Model {
   M5STACK = 0,
   TFT_24,
-  WT32,
+  WT_32,
 };
 
 class ST7796Display : public PollingComponent,
