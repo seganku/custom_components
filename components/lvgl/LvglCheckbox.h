@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome.h"
-#include "lvgl.h"
+#include "lvgl\lvhl.h"
 
 class LvglCheckbox : public Component, public Switch
 {
