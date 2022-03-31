@@ -15,7 +15,7 @@ from . import lvgl_ns
 
 CODEOWNERS = ["@cpyarger"]
 
-DEPENDENCIES = ["spi","lvgl","spiffs"]
+DEPENDENCIES = ["spi","lvgl/lvgl","spiffs"]
 
 LVGL = lvgl_ns.class_(
     "LVGL", cg.PollingComponent, spi.SPIDevice, display.DisplayBuffer
