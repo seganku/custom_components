@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome.h"
-#include "lvgl.h"
+#include <lvgl.h>
 #include "TFT_eSPI.h"
 #include "bootlogo.h"
 
