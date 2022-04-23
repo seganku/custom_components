@@ -38,8 +38,7 @@ void IFan::write_state_() {
 
   if (speed < 0.3) {
     // OFF
-    id(target_fan_speed) = 0;
-    id(start_time_offset) = 0;
+    
     digitalWrite(14, LOW); // relay 1
     digitalWrite(12, LOW); // relay 2
     digitalWrite(15, LOW); // relay 3
