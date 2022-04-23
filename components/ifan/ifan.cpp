@@ -35,15 +35,7 @@ void IFan::write_state_() {
     
   float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(3) : 0.0f;
   ESP_LOGD("IFAN", "Setting Fan Speed %f", speed);
-  if (speed < 0.3) {
-    ESP_LOGD("IFAN04", "Fan currently off, boosting speed");
-    id(target_fan_speed) = speed;
-    state = 1.0;
-    id(start_time_offset) = millis() + 5000; // 5 second delay
-  } else {
-    id(start_time_offset) = 0;
-    id(target_fan_speed) = speed;
-  }
+
   if (speed < 0.3) {
     // OFF
     id(target_fan_speed) = 0;
@@ -61,13 +53,13 @@ void IFan::write_state_() {
   } else if (state < 0.9) {
     // medium speed
     ESP_LOGD("IFAN", "Setting Fan Medium");
-    digitalWrite(14, HIGH);
+    digitalWrite(14, LOW);
     digitalWrite(12, HIGH);
     digitalWrite(15, LOW);
   } else {
     // high speed
     ESP_LOGD("IFAN", "Setting Fan High");
-    digitalWrite(14, HIGH);
+    digitalWrite(14, LOW);
     digitalWrite(12, LOW);
     digitalWrite(15, HIGH);
   }
