@@ -16,7 +16,7 @@ void IFan::setup() {
 }
 void IFan::dump_config() { LOG_FAN("", "I Fan", this); }
 fan::FanTraits IFan::get_traits() {
-  return fan::FanTraits(true, this->direction_ != nullptr, this->speed_count_);
+  return fan::FanTraits(false, true, this->direction_ != nullptr, this->speed_count_);
 }
 void IFan::control(const fan::FanCall &call) {
   if (call.get_state().has_value())
