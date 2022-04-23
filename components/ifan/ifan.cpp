@@ -31,13 +31,14 @@ void IFan::control(const fan::FanCall &call) {
   this->publish_state();
 }
 void IFan::write_state_() {
+    
     float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(3) : 0.0f;
-
+    ESP_LOGD("IFAN", "Setting Fan Speed %f", speed);
       if (speed < 0.3) {
         // OFF
-        digitalWrite(14, LOW);
-        digitalWrite(12, LOW);
-        digitalWrite(15, LOW);
+        digitalWrite(14, LOW); // relay 1
+        digitalWrite(12, LOW); // relay 2
+        digitalWrite(15, LOW); // relay 3
       } else if (state < 0.6) {
         // low speed
         digitalWrite(14, HIGH);
