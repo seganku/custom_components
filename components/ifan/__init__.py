@@ -8,9 +8,9 @@ from esphome.const import (
     CONF_SPEED,
     CONF_SPEED_COUNT,
 )
-from .. import ifan_ns
+ifan_ns = cg.esphome_ns.namespace('ifan')
 
-IFan = ifan_ns.class_("ifan", cg.Component, fan.Fan)
+IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan)
 
 CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
