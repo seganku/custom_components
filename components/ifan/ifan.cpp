@@ -1,6 +1,7 @@
 #include "ifan.h"
 #include "esphome/components/fan/fan_helpers.h"
 #include "esphome/core/log.h"
+#include "esphome.h"
 #define LOW 0
 #define HIGH 1
 namespace esphome {
