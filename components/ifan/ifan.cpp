@@ -1,4 +1,4 @@
-#include "speed_fan.h"
+#include "ifan.h"
 #include "esphome/components/fan/fan_helpers.h"
 #include "esphome/core/log.h"
 

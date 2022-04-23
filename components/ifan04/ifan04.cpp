@@ -77,41 +77,7 @@ void IFan04::handle_command_(uint8_t type, uint8_t param) {
   ESP_LOGD(TAG, "unknown command type %d param %d", type, param);
 }
 void IFan04::output(const float state){
-  if (state) {
-            int speed = int(state / 0.33);
-            if (!id(target_fan_speed) && (speed < 3)) {
-              ESP_LOGD("IFAN04", "Fan currently off, boosting speed");
-              id(target_fan_speed) = speed;
-              state = 1.0;
-              id(start_time_offset) = millis() + 5000; // 5 second delay
-            } else {
-              id(start_time_offset) = 0;
-              id(target_fan_speed) = speed;
-            }
-          }
-          if (state < 0.3) {
-            // OFF
-            id(target_fan_speed) = 0;
-            id(start_time_offset) = 0;
-            id(fan_relay1).turn_off();
-            id(fan_relay2).turn_off();
-            id(fan_relay3).turn_off();
-          } else if (state < 0.6) {
-            // low speed
-            id(fan_relay1).turn_on();
-            id(fan_relay2).turn_off();
-            id(fan_relay3).turn_off();
-          } else if (state < 0.9) {
-            // medium speed
-            id(fan_relay1).turn_off();
-            id(fan_relay2).turn_on();
-            id(fan_relay3).turn_off();
-          } else {
-            // high speed
-            id(fan_relay1).turn_off();
-            id(fan_relay2).turn_off();
-            id(fan_relay3).turn_on();
-          }
+
 }
 }  // namespace ifan04
 }  // namespace esphome
