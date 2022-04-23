@@ -30,7 +30,30 @@ void IFan::control(const fan::FanCall &call) {
   this->publish_state();
 }
 void IFan::write_state_() {
-  float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(this->speed_count_) : 0.0f;
+    float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(this->speed_count_) : 0.0f;
+
+      if (speed < 0.3) {
+        // OFF
+        digitalWrite(14, LOW);
+        digitalWrite(12, LOW);
+        digitalWrite(15, LOW);
+      } else if (state < 0.6) {
+        // low speed
+        digitalWrite(14, HIGH);
+        digitalWrite(12, LOW);
+        digitalWrite(15, LOW);
+      } else if (state < 0.9) {
+        // medium speed
+        digitalWrite(14, HIGH);
+        digitalWrite(12, HIGH);
+        digitalWrite(15, LOW);
+      } else {
+        // high speed
+        digitalWrite(14, HIGH);
+        digitalWrite(12, LOW);
+        digitalWrite(15, HIGH);
+      }
+    }
   this->output_->set_level(speed);
 
   if (this->direction_ != nullptr)
