@@ -10,7 +10,7 @@ from esphome.const import (
 )
 from .. import ifan_ns
 
-IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan)
+IFan = ifan_ns.class_("ifan", cg.Component, fan.Fan)
 
 CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
