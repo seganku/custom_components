@@ -14,9 +14,9 @@ void IFan::setup() {
     this->write_state_();
   }
 }
-void IFan::dump_config() { LOG_FAN("", "I Fan", this); }
+void IFan::dump_config() { LOG_FAN("", "IFan", this); }
 fan::FanTraits IFan::get_traits() {
-  return fan::FanTraits(false, true, this->direction_ != nullptr, this->speed_count_);
+  return fan::FanTraits(false, true, this->direction_ != nullptr, 3);
 }
 void IFan::control(const fan::FanCall &call) {
   if (call.get_state().has_value())
@@ -30,7 +30,7 @@ void IFan::control(const fan::FanCall &call) {
   this->publish_state();
 }
 void IFan::write_state_() {
-    float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(this->speed_count_) : 0.0f;
+    float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(3) : 0.0f;
 
       if (speed < 0.3) {
         // OFF

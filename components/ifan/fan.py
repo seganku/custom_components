@@ -15,13 +15,14 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(IFan),
         cv.Optional(CONF_DIRECTION_OUTPUT): cv.use_id(output.BinaryOutput),
+
         cv.Optional(CONF_SPEED_COUNT, 3): cv.int_range(min=1),
     }
 ).extend(cv.COMPONENT_SCHEMA)
 
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_OUTPUT_ID], config[CONF_SPEED_COUNT])
+    var = cg.new_Pvariable(config[CONF_OUTPUT_ID], 3)
     await cg.register_component(var, config)
     await fan.register_fan(var, config)
 

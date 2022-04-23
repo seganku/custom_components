@@ -10,7 +10,7 @@ namespace ifan {
 
 class IFan : public Component, public fan::Fan {
  public:
-  IFan(output::FloatOutput *output, int speed_count=3) : output_(output), speed_count_(speed_count) {}
+  IFan() {}
   void setup() override;
   void dump_config() override;
   void set_direction(output::BinaryOutput *direction) { this->direction_ = direction; }
@@ -20,8 +20,7 @@ class IFan : public Component, public fan::Fan {
   void control(const fan::FanCall &call) override;
   void write_state_();
 
-  output::FloatOutput *output_;
-  output::BinaryOutput *direction_{nullptr};
+
   int speed_count_{};
 };
 
