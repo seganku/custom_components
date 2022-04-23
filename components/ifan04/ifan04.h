@@ -15,7 +15,7 @@ class IFan04 : public Component, public uart::UARTDevice {
   Trigger<int> *get_fan_trigger() const { return fan_trigger_; }
   Trigger<> *get_light_trigger() const { return light_trigger_; }
   Trigger<> *get_buzzer_trigger() const { return buzzer_trigger_; }
-
+  void output(const float speed);
  protected:
   void handle_char_(uint8_t c);
   void handle_command_(uint8_t type, uint8_t param);
