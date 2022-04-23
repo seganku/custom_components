@@ -32,35 +32,51 @@ void IFan::control(const fan::FanCall &call) {
 }
 void IFan::write_state_() {
     
-    float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(3) : 0.0f;
-    ESP_LOGD("IFAN", "Setting Fan Speed %f", speed);
-      if (speed < 0.3) {
-        // OFF
-        digitalWrite(14, LOW); // relay 1
-        digitalWrite(12, LOW); // relay 2
-        digitalWrite(15, LOW); // relay 3
-      } else if (state < 0.6) {
-        // low speed
-        digitalWrite(14, HIGH);
-        digitalWrite(12, LOW);
-        digitalWrite(15, LOW);
-      } else if (state < 0.9) {
-        // medium speed
-        digitalWrite(14, HIGH);
-        digitalWrite(12, HIGH);
-        digitalWrite(15, LOW);
-      } else {
-        // high speed
-        digitalWrite(14, HIGH);
-        digitalWrite(12, LOW);
-        digitalWrite(15, HIGH);
-      }
+  float speed = this->state ? static_cast<float>(this->speed) / static_cast<float>(3) : 0.0f;
+  ESP_LOGD("IFAN", "Setting Fan Speed %f", speed);
+  if (speed < 0.3) {
+    ESP_LOGD("IFAN04", "Fan currently off, boosting speed");
+    id(target_fan_speed) = speed;
+    state = 1.0;
+    id(start_time_offset) = millis() + 5000; // 5 second delay
+  } else {
+    id(start_time_offset) = 0;
+    id(target_fan_speed) = speed;
+  }
+  if (speed < 0.3) {
+    // OFF
+    id(target_fan_speed) = 0;
+    id(start_time_offset) = 0;
+    digitalWrite(14, LOW); // relay 1
+    digitalWrite(12, LOW); // relay 2
+    digitalWrite(15, LOW); // relay 3
+    ESP_LOGD("IFAN", "Setting Fan OFF");
+  } else if (state < 0.6) {
+    // low speed
+    ESP_LOGD("IFAN", "Setting Fan Low");
+    digitalWrite(14, HIGH);
+    digitalWrite(12, LOW);
+    digitalWrite(15, LOW);
+  } else if (state < 0.9) {
+    // medium speed
+    ESP_LOGD("IFAN", "Setting Fan Medium");
+    digitalWrite(14, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(15, LOW);
+  } else {
+    // high speed
+    ESP_LOGD("IFAN", "Setting Fan High");
+    digitalWrite(14, HIGH);
+    digitalWrite(12, LOW);
+    digitalWrite(15, HIGH);
+  }
     
   //this->output_->set_level(speed);
 
-  if (this->direction_ != nullptr)
-    this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
-
+  //if (this->direction_ != nullptr)
+  //  this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
 }  // write_state_
+
 }  // namespace ifan
+
 }  // namespace esphome
