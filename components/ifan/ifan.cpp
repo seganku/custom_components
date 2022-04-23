@@ -55,11 +55,11 @@ void IFan::write_state_() {
         digitalWrite(15, HIGH);
       }
     }
-  this->output_->set_level(speed);
+  //this->output_->set_level(speed);
 
   if (this->direction_ != nullptr)
     this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
-}
 
-}  // namespace speed
+
+}  // namespace ifan
 }  // namespace esphome
