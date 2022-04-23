@@ -7,7 +7,8 @@ namespace esphome {
 namespace ifan {
 
 static const char *const TAG = "ifan.fan";
-
+int target_fan_speed;
+int start_time_offset;
 void IFan::setup() {
   auto restore = this->restore_state_();
   if (restore.has_value()) {
