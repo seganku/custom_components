@@ -34,7 +34,7 @@ void IFan::control(const fan::FanCall &call) {
 void IFan::write_state_() {
     
   float state = this->state ? static_cast<float>(this->speed):0.0f; // state = 0-1 float
-  int intstate = static_cast<int>(state*100);
+  int intstate = static_cast<int>(this->speed*100);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", intstate);
 
   switch (intstate) {
