@@ -5,43 +5,49 @@
 
 namespace esphome {
 namespace ifan {
-
+#define buzzer 10
+#define relay_1 14
+#define relay_2 12
+#define relay_3 15
 static const char *const TAG = "ifan.fan";
 int target_fan_speed;
 int start_time_offset;
 void IFan::setup() {
+  pinMode(buzzer, 0x01);
+  pinMode(relay_1, 0x01);
+  pinMode(relay_2, 0x01);
+  pinMode(relay_3, 0x01);
 
   auto restore = this->restore_state_();
   if (restore.has_value()) {
     restore->apply(*this);
+    this->current_speed = this->speed;
     this->write_state_();
   }
 }
 void IFan::dump_config() { LOG_FAN("", "IFan", this); }
-fan::FanTraits IFan::get_traits() {
-  return fan::FanTraits(false, true, false, 3);
-}
+fan::FanTraits IFan::get_traits() { return fan::FanTraits(false, true, false, 3); }
 void IFan::control(const fan::FanCall &call) {
   if (call.get_state().has_value())
     this->state = *call.get_state();
   if (call.get_speed().has_value())
     this->speed = *call.get_speed();
-
-
   this->write_state_();
   this->publish_state();
-
 }
-void IFan::write_state_() {
 
+void IFan::write_state_() {
   int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
-  ESP_LOGD("IFAN", "State is %i", this->state);
-
+  ESP_LOGD("IFAN", "State is %s", this->state ? "ON" : "OFF");
+  if (this->speed != this->current_speed) {
+    if (this->speed)
+      this->state = 1;
+  }
   target_fan_speed = local_speed;
-  if (state == 0){
+  if (this->state == 0) {
     set_off();
-    this->speed = 0;
+    return;
   }
   switch (local_speed) {
     case 0:
@@ -64,54 +70,61 @@ void IFan::write_state_() {
       set_off();
       break;
   }
-    
-  //this->output_->set_level(speed);
+  this->current_speed = this->speed;
+  // this->output_->set_level(speed);
 
- 
 }  // write_state_
-void IFan::set_off(){
-    ESP_LOGD("IFAN", "Setting Fan OFF");
-    digitalWrite(14, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(15, LOW);
-    long_beep();
+void IFan::set_off() {
+  ESP_LOGD("IFAN", "Setting Fan OFF");
+  this->speed = 0;
+  this->state = 0;
+  digitalWrite(relay_1, LOW);
+  digitalWrite(relay_2, LOW);
+  digitalWrite(relay_3, LOW);
+  long_beep();
 }
-void IFan::set_low(){
-    ESP_LOGD("IFAN", "Setting Fan Low");
-    digitalWrite(14, HIGH);
-    digitalWrite(12, LOW);
-    digitalWrite(15, LOW);
-    beep();
+void IFan::set_low() {
+  this->speed = 1;
+  this->state = 1;
+  ESP_LOGD("IFAN", "Setting Fan Low");
+  digitalWrite(relay_1, HIGH);
+  digitalWrite(relay_2, LOW);
+  digitalWrite(relay_3, LOW);
+  beep();
 }
-void IFan::set_med(){
-    ESP_LOGD("IFAN", "Setting Fan Med");
-    digitalWrite(14, LOW);
-    digitalWrite(12, HIGH);
-    digitalWrite(15, LOW);
-    beep(2);
+void IFan::set_med() {
+  this->speed = 2;
+  this->state = 1;
+  ESP_LOGD("IFAN", "Setting Fan Med");
+  digitalWrite(relay_1, LOW);
+  digitalWrite(relay_2, HIGH);
+  digitalWrite(relay_3, LOW);
+  beep(2);
 }
-void IFan::set_high(){
-    ESP_LOGD("IFAN", "Setting Fan HIGH");
-    digitalWrite(14, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(15, HIGH);
+void IFan::set_high() {
+  this->speed = 3;
+  this->state = 1;
+  ESP_LOGD("IFAN", "Setting Fan HIGH");
+  digitalWrite(relay_1, LOW);
+  digitalWrite(relay_2, LOW);
+  digitalWrite(relay_3, HIGH);
 
-    beep(3);
+  beep(3);
 }
-void IFan::beep(int num){
-  for (int i=0; i<num; i++){
-    digitalWrite(10, LOW);
+void IFan::beep(int num) {
+  for (int i = 0; i < num; i++) {
+    digitalWrite(buzzer, LOW);
     delay(50);
-    digitalWrite(10, HIGH);
+    digitalWrite(buzzer, HIGH);
     delay(50);
   }
 }
-void IFan::long_beep(int num){
-    for (int i=0; i<num; i++){
+void IFan::long_beep(int num) {
+  for (int i = 0; i < num; i++) {
     ESP_LOGD("IFAN", "Long Beep");
-    digitalWrite(10, LOW);
+    digitalWrite(buzzer, LOW);
     delay(500);
-    digitalWrite(10, HIGH);
+    digitalWrite(buzzer, HIGH);
     delay(500);
   }
 }

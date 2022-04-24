@@ -25,6 +25,7 @@ class IFan : public Component, public fan::Fan {
   void beep(int num=1);
   void long_beep(int num=1);
   int speed_count_{};
+  int current_speed=0;
 };
 
 }  // namespace speed
