@@ -4,20 +4,17 @@
 #include "esphome/components/output/binary_output.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/fan/fan.h"
-#include "esphome/components/uart/uart.h"
 
 namespace esphome {
 namespace ifan {
 
-class IFan : public Component, public fan::Fan, public uart::UARTDevice {
+class IFan : public Component, public fan::Fan {
  public:
   IFan() {}
   void setup() override;
-  void loop() override;
   void dump_config() override;
   void set_direction(output::BinaryOutput *direction) { this->direction_ = direction; }
   fan::FanTraits get_traits() override;
-  void enable_remote(bool enabled);
  protected:
   void control(const fan::FanCall &call) override;
   void write_state_();
@@ -33,11 +30,7 @@ class IFan : public Component, public fan::Fan, public uart::UARTDevice {
   output::BinaryOutput *direction_{nullptr};
   int speed_count_{};
   // for remote
-  bool enabled;
-  bool light_state;
-  void toggle_light();
-  void handle_char_(uint8_t c);
-  void handle_command_(uint8_t type, uint8_t param);
+
 };
 
 }  // namespace speed
