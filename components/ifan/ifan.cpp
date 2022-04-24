@@ -29,9 +29,10 @@ void IFan::control(const fan::FanCall &call) {
   if (call.get_speed().has_value())
     this->speed = *call.get_speed();
 
-  this->publish_state();
 
   this->write_state_();
+  this->publish_state();
+
 }
 void IFan::write_state_() {
 
