@@ -60,7 +60,7 @@ void IFan::write_state_() {
   //if (this->direction_ != nullptr)
   //  this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
 }  // write_state_
-void IFan::set_low(){
+void IFan::set_off(){
     ESP_LOGD("IFAN", "Setting Fan OFF");
     digitalWrite(14, LOW);
     digitalWrite(12, LOW);
