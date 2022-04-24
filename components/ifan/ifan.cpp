@@ -71,16 +71,16 @@ void IFan::set_off(){
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
     long_beep();
-    this->state_->set_state(false);
-    this->speed_->set_speed(0);
+    this->state->set_state(false);
+    this->speed->set_speed(0);
 }
 void IFan::set_low(){
     ESP_LOGD("IFAN", "Setting Fan Low");
     digitalWrite(14, HIGH);
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
-    this->state_->set_state(true);
-    this->speed_->set_speed(1);
+    this->state->set_state(true);
+    this->speed->set_speed(1);
     beep();
 }
 void IFan::set_med(){
@@ -88,8 +88,8 @@ void IFan::set_med(){
     digitalWrite(14, LOW);
     digitalWrite(12, HIGH);
     digitalWrite(15, LOW);
-    this->state_->set_state(true);
-    this->speed_->set_speed(2);
+    this->state->set_state(true);
+    this->speed->set_speed(2);
     beep(2);
 }
 void IFan::set_high(){
@@ -97,8 +97,8 @@ void IFan::set_high(){
     digitalWrite(14, LOW);
     digitalWrite(12, LOW);
     digitalWrite(15, HIGH);
-    this->state_->set_state(true);
-    this->speed_->set_speed(3);
+    this->state->set_state(true);
+    this->speed->set_speed(3);
     beep(3);
 }
 void IFan::beep(int num){
