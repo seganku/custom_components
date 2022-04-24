@@ -1,5 +1,5 @@
 #include "ifan.h"
-#include "esphome/components/fan/fan_helpe`s.h"
+#include "esphome/components/fan/fan_helpers.h"
 #include "esphome/core/log.h"
 #include "esphome.h"
 
