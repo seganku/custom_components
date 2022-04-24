@@ -13,6 +13,7 @@ class IFan : public Component, public fan::Fan, public uart::UARTDevice {
  public:
   IFan() {}
   void setup() override;
+  void loop() override;
   void dump_config() override;
   void set_direction(output::BinaryOutput *direction) { this->direction_ = direction; }
   fan::FanTraits get_traits() override;
@@ -27,9 +28,15 @@ class IFan : public Component, public fan::Fan, public uart::UARTDevice {
   void set_high();
   void beep(int num=1);
   void long_beep(int num=1);
-  
+
+
   output::BinaryOutput *direction_{nullptr};
   int speed_count_{};
+  // for remote
+  bool light_state;
+  void toggle_light();
+  void handle_char_(uint8_t c);
+  void handle_command_(uint8_t type, uint8_t param);
 };
 
 }  // namespace speed
