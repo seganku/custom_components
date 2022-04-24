@@ -117,7 +117,9 @@ void IFan::long_beep(int num){
     delay(500);
   }
 }
-
+void IFan::enable_remote(bool enabled){
+  
+}
 }  // namespace ifan
 
 }  // namespace esphome
