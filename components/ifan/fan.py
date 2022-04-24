@@ -29,6 +29,8 @@ async def to_code(config):
     if config[CONF_ENABLE_REMOTE]:
         await uart.register_uart_device(var, config)
         cg.add(var.enable_remote(True))
+    else: 
+        cg.add(var.enable_remote(False))
 
     if CONF_DIRECTION_OUTPUT in config:
         direction_output = await cg.get_variable(config[CONF_DIRECTION_OUTPUT])
