@@ -93,17 +93,19 @@ void IFan::set_high(){
 }
 void IFan::beep(int num){
   for (int i=0; i<num; i++){
+    digitalWrite(10, LOW);
+    delay(50);
     digitalWrite(10, HIGH);
     delay(50);
-    digitalWrite(10, LOW);
   }
 }
 void IFan::long_beep(int num){
     for (int i=0; i<num; i++){
 
+    digitalWrite(10, LOW);
+    delay(100);
     digitalWrite(10, HIGH);
     delay(100);
-    digitalWrite(10, LOW);
   }
 }
 
