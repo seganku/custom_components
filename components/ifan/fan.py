@@ -16,7 +16,7 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(IFan),
         cv.Optional(CONF_DIRECTION_OUTPUT): cv.use_id(output.BinaryOutput),
-        cv.Required(CONF_ENABLE_REMOTE, default=False): cv.boolean,
+        cv.Required(CONF_ENABLE_REMOTE): cv.boolean,
     }
 ).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
 
