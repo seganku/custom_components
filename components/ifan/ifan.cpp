@@ -178,7 +178,7 @@ void IFan::handle_char_(uint8_t c) {
 void IFan::handle_command_(uint8_t type, uint8_t param) {
   if (type == 4) {
     if (param == 4)
-      light_toggle();
+      toggle_light();
       //this->light_trigger_->trigger();
       return;
     else
