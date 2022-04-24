@@ -103,9 +103,9 @@ void IFan::long_beep(int num){
     for (int i=0; i<num; i++){
 
     digitalWrite(10, LOW);
-    delay(500);
+    delay(1000);
     digitalWrite(10, HIGH);
-    delay(500);
+    delay(1000);
   }
 }
 
