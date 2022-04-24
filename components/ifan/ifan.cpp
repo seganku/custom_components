@@ -32,12 +32,18 @@ void IFan::control(const fan::FanCall &call) {
   this->write_state_();
 }
 void IFan::write_state_() {
-    
+  if (this->direction_ != nullptr)
+    this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
   int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
   ESP_LOGD("IFAN", "State is %i", this->state);
 
   target_fan_speed = local_speed;
+  if (state == 0){
+    set_off();
+    this->speed = 0;
+    return;
+  }
   switch (local_speed) {
     case 0:
       // OFF
@@ -62,8 +68,7 @@ void IFan::write_state_() {
     
   //this->output_->set_level(speed);
 
-  if (this->direction_ != nullptr)
-    this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
+ 
 }  // write_state_
 void IFan::set_off(){
     ESP_LOGD("IFAN", "Setting Fan OFF");
