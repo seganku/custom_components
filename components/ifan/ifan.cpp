@@ -49,7 +49,7 @@ void IFan::write_state_() {
       // medium speed
       set_med();
       break;
-    case 66 ... 100;
+    case 66 ... 100:
       // high speed
       set_high();
       break;
