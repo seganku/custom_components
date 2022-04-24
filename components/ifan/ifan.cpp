@@ -10,9 +10,9 @@ static const char *const TAG = "ifan.fan";
 int target_fan_speed;
 int start_time_offset;
 void IFan::setup() {
-  pinMode(12,FLAG_OUTPUT);
-  pinMode(14,FLAG_OUTPUT);
-  pinMode(15,FLAG_OUTPUT);
+  pinMode(12,gpio::Flags::FLAG_OUTPUT);
+  pinMode(14,gpio::Flags::FLAG_OUTPUT);
+  pinMode(15,gpio::Flags::FLAG_OUTPUT);
   auto restore = this->restore_state_();
   if (restore.has_value()) {
     restore->apply(*this);
