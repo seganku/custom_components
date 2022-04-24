@@ -117,22 +117,27 @@ void IFan::long_beep(int num){
     delay(500);
   }
 }
-void IFan::enable_remote(bool enabled){
-
+void IFan::enable_remote(bool en){
+this->enabled = en;
 }
 
 void IFan::loop() {
+  if (!this->enabled)
+    return;
   while (this->available()) {
     uint8_t c;
     this->read_byte(&c);
     this->handle_char_(c);
   }
+  
 }
 void IFan::toggle_light(){
   digitalWrite(9, !digitalRead(9));
 }
 
 void IFan::handle_char_(uint8_t c) {
+  if (!this->enabled)
+    return;
   static int state = 0;
   static uint8_t type = 0;
   static uint8_t param = 0;
@@ -176,6 +181,8 @@ void IFan::handle_char_(uint8_t c) {
   state++;
 }
 void IFan::handle_command_(uint8_t type, uint8_t param) {
+  if (!this->enabled)
+    return;
   if (type == 4) {
     if (param == 4){
       toggle_light();

@@ -33,6 +33,7 @@ class IFan : public Component, public fan::Fan, public uart::UARTDevice {
   output::BinaryOutput *direction_{nullptr};
   int speed_count_{};
   // for remote
+  bool enabled;
   bool light_state;
   void toggle_light();
   void handle_char_(uint8_t c);
