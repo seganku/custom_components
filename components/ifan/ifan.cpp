@@ -68,7 +68,7 @@ void IFan::set_off(){
     digitalWrite(14, LOW);
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
-    long_beep(1);
+    long_beep(2);
 }
 void IFan::set_low(){
     ESP_LOGD("IFAN", "Setting Fan Low");
@@ -101,6 +101,7 @@ void IFan::beep(int num){
 }
 void IFan::long_beep(int num){
     for (int i=0; i<num; i++){
+    ESP_LOGD("IFAN", "Long Beep");
 
     digitalWrite(10, LOW);
     delay(1000);
