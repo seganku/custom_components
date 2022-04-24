@@ -71,6 +71,7 @@ void IFan::set_off(){
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
     long_beep();
+    this->turn_off();
 }
 void IFan::set_low(){
     ESP_LOGD("IFAN", "Setting Fan Low");
