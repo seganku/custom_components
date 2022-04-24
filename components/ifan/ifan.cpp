@@ -35,8 +35,10 @@ void IFan::write_state_() {
     
   int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
+  target_fan_speed = local_speed;
   if (!this->state){
     set_off();
+    target_fan_speed = 0;
   }
   switch (local_speed) {
     case 0:
@@ -71,16 +73,12 @@ void IFan::set_off(){
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
     long_beep();
-    this->state->set_state(false);
-    this->speed->set_speed(0);
 }
 void IFan::set_low(){
     ESP_LOGD("IFAN", "Setting Fan Low");
     digitalWrite(14, HIGH);
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
-    this->state->set_state(true);
-    this->speed->set_speed(1);
     beep();
 }
 void IFan::set_med(){
@@ -88,8 +86,6 @@ void IFan::set_med(){
     digitalWrite(14, LOW);
     digitalWrite(12, HIGH);
     digitalWrite(15, LOW);
-    this->state->set_state(true);
-    this->speed->set_speed(2);
     beep(2);
 }
 void IFan::set_high(){
@@ -97,8 +93,7 @@ void IFan::set_high(){
     digitalWrite(14, LOW);
     digitalWrite(12, LOW);
     digitalWrite(15, HIGH);
-    this->state->set_state(true);
-    this->speed->set_speed(3);
+
     beep(3);
 }
 void IFan::beep(int num){
@@ -112,7 +107,6 @@ void IFan::beep(int num){
 void IFan::long_beep(int num){
     for (int i=0; i<num; i++){
     ESP_LOGD("IFAN", "Long Beep");
-
     digitalWrite(10, LOW);
     delay(500);
     digitalWrite(10, HIGH);
