@@ -33,7 +33,7 @@ void IFan::control(const fan::FanCall &call) {
 }
 void IFan::write_state_() {
     
-  float state = this->state ? static_cast<float>(this->speed) / static_cast<float>(3) : 0.0f; // state = 0-1 float
+  int state = this->state ? static_cast<int>(this->speed); // state = 0-1 float
   ESP_LOGD("IFAN", "Setting Fan Speed %f", state);
 
   switch (state) {
@@ -41,15 +41,15 @@ void IFan::write_state_() {
       // OFF
       set_off();
       break;
-    case 0.01 ... 0.33:
+    case 1 ... 33:
       // low speed
       set_low();
       break;
-    case 0.34 ... 0.65:
+    case 34 ... 65:
       // medium speed
       set_med();
       break;
-    case 0.66 ... 1;
+    case 66 ... 100;
       // high speed
       set_high();
       break;
