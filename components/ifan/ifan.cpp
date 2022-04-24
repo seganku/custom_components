@@ -101,7 +101,7 @@ void IFan::set_high(){
     this->speed = 3;
     beep(3);
 }
-void IFan::beep(int num=1){
+void IFan::beep(int num){
   for (int i=0; i<num; i++){
     digitalWrite(10, LOW);
     delay(50);
@@ -109,7 +109,7 @@ void IFan::beep(int num=1){
     delay(50);
   }
 }
-void IFan::long_beep(int num=1){
+void IFan::long_beep(int num){
     for (int i=0; i<num; i++){
     ESP_LOGD("IFAN", "Long Beep");
 
