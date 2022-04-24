@@ -24,8 +24,8 @@ class IFan : public Component, public fan::Fan {
   void set_low();
   void set_med();
   void set_high();
-  void beep(int num);
-  void long_beep(int num);
+  void beep(int num=1);
+  void long_beep(int num=1);
 
   output::BinaryOutput *direction_{nullptr};
   int speed_count_{};
