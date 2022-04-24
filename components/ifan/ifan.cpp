@@ -41,9 +41,9 @@ void IFan::write_state_(const fan::FanCall &call) {
   if (!this->state){
     set_off();
     target_fan_speed = 0;
-    this->set_state(false);
+    call->set_state(false);
   }else{
-    this->set_state(true);
+    call->set_state(true);
     switch (local_speed) {
       case 0:
         // OFF
@@ -66,9 +66,9 @@ void IFan::write_state_(const fan::FanCall &call) {
         break;
     } 
   }
-    this->set_state(state);
-    this->set_speed(local_speed);
-  //this->output_->set_level(speed);
+    call->set_state(state);
+    call->set_speed(local_speed);
+//  this->output_->set_level(speed);
 
   if (this->direction_ != nullptr)
     this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
