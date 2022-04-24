@@ -177,9 +177,12 @@ void IFan::handle_char_(uint8_t c) {
 }
 void IFan::handle_command_(uint8_t type, uint8_t param) {
   if (type == 4) {
-    if (param == 4)
+    if (param == 4){
       toggle_light();
-    else
+    }else{
+
+      this->state=param ? 1:0;
+      this->speed=param;
       write_state_();
     return;
   }
