@@ -70,20 +70,26 @@ void IFan::set_off(){
     digitalWrite(14, LOW);
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
-    long_beep(2);
+    long_beep();
+    this->state = false;
+    this->speed = 0;
 }
 void IFan::set_low(){
     ESP_LOGD("IFAN", "Setting Fan Low");
     digitalWrite(14, HIGH);
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
-    beep(1);
+    this->state = true;
+    this->speed = 1;
+    beep();
 }
 void IFan::set_med(){
     ESP_LOGD("IFAN", "Setting Fan Med");
     digitalWrite(14, LOW);
     digitalWrite(12, HIGH);
     digitalWrite(15, LOW);
+    this->state = true;
+    this->speed = 2;
     beep(2);
 }
 void IFan::set_high(){
@@ -91,9 +97,11 @@ void IFan::set_high(){
     digitalWrite(14, LOW);
     digitalWrite(12, LOW);
     digitalWrite(15, HIGH);
+    this->state = true;
+    this->speed = 3;
     beep(3);
 }
-void IFan::beep(int num){
+void IFan::beep(int num=1){
   for (int i=0; i<num; i++){
     digitalWrite(10, LOW);
     delay(50);
@@ -101,14 +109,14 @@ void IFan::beep(int num){
     delay(50);
   }
 }
-void IFan::long_beep(int num){
+void IFan::long_beep(int num=1){
     for (int i=0; i<num; i++){
     ESP_LOGD("IFAN", "Long Beep");
 
     digitalWrite(10, LOW);
-    delay(1000);
+    delay(500);
     digitalWrite(10, HIGH);
-    delay(1000);
+    delay(500);
   }
 }
 
