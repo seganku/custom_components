@@ -179,12 +179,8 @@ void IFan::handle_command_(uint8_t type, uint8_t param) {
   if (type == 4) {
     if (param == 4)
       toggle_light();
-      //this->light_trigger_->trigger();
-      return;
     else
       write_state_();
-      //this->fan_trigger_->trigger(param);
-      return;
     return;
   }
   if (type == 6) {
