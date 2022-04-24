@@ -19,7 +19,11 @@ class IFan : public Component, public fan::Fan {
  protected:
   void control(const fan::FanCall &call) override;
   void write_state_();
-
+  
+  void set_off();
+  void set_low();
+  void set_med();
+  void set_high();
   output::BinaryOutput *direction_{nullptr};
   int speed_count_{};
 };
