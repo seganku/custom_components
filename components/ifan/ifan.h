@@ -4,7 +4,6 @@
 #include "esphome/components/output/binary_output.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/fan/fan.h"
-#include "remote.h"
 namespace esphome {
 namespace ifan {
 
