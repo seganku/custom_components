@@ -27,15 +27,14 @@ void IFan::control(const fan::FanCall &call) {
     this->speed = *call.get_speed();
   if (call.get_direction().has_value())
     this->direction = *call.get_direction();
-
-  this->write_state_();
   this->publish_state();
 
+  this->write_state_();
 }
 void IFan::write_state_() {
   if (this->direction_ != nullptr)
     this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);
-  int local_speed = this->speed;
+  int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
   ESP_LOGD("IFAN", "State is %i", this->state);
 
@@ -118,6 +117,7 @@ void IFan::long_beep(int num){
     delay(500);
   }
 }
+
 }  // namespace ifan
 
 }  // namespace esphome
