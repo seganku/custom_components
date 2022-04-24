@@ -20,11 +20,12 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     }
 ).extend(cv.COMPONENT_SCHEMA)
 
-if config[CONF_ENABLE_REMOTE]:
-    CONFIG_SCHEMA.extend(uart.UART_DEVICE_SCHEMA)
+
 
 
 async def to_code(config):
+    if config[CONF_ENABLE_REMOTE]:
+        CONFIG_SCHEMA.extend(uart.UART_DEVICE_SCHEMA)
     var = cg.new_Pvariable(config[CONF_OUTPUT_ID])
     await cg.register_component(var, config)
     await fan.register_fan(var, config)
