@@ -26,10 +26,9 @@ async def to_code(config):
     await cg.register_component(var, config)
     await fan.register_fan(var, config)
 
-    if CONF_ENABLE_REMOTE in config:
+    if config[CONF_ENABLE_REMOTE]:
         await uart.register_uart_device(var, config)
-        enable_remote = await cg.get_variable(config[CONF_ENABLE_REMOTE])
-        cg.add(var.enable_remote(enable_remote))
+        cg.add(var.enable_remote(True))
 
     if CONF_DIRECTION_OUTPUT in config:
         direction_output = await cg.get_variable(config[CONF_DIRECTION_OUTPUT])
