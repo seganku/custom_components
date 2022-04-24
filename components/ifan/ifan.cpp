@@ -42,7 +42,6 @@ void IFan::write_state_() {
   if (state == 0){
     set_off();
     this->speed = 0;
-    return;
   }
   switch (local_speed) {
     case 0:
@@ -76,7 +75,6 @@ void IFan::set_off(){
     digitalWrite(12, LOW);
     digitalWrite(15, LOW);
     long_beep();
-    this->turn_off();
 }
 void IFan::set_low(){
     ESP_LOGD("IFAN", "Setting Fan Low");
