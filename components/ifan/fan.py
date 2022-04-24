@@ -7,21 +7,18 @@ DEPENDENCIES = ['uart']
 from esphome.const import (
     CONF_DIRECTION_OUTPUT,
     CONF_OUTPUT_ID,
-    CONF_ENABLE_REMOTE,
 )
-
+CONF_ENABLE_REMOTE= "enable_remote"
 ifan_ns = cg.esphome_ns.namespace('ifan')
-if CONF_ENABLE_REMOTE :
-    IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan, uart.UARTDevice)
-else:
-    IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan)
+IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan, uart.UARTDevice)
+
 CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(IFan),
         cv.Optional(CONF_DIRECTION_OUTPUT): cv.use_id(output.BinaryOutput),
         cv.Required(CONF_ENABLE_REMOTE, default=False): cv.boolean,
     }
-).extend(cv.COMPONENT_SCHEMA)
+).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
 
 
 async def to_code(config):
