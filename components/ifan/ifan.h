@@ -13,7 +13,6 @@ class IFan : public Component, public fan::Fan {
   IFan() {}
   void setup() override;
   void dump_config() override;
-  void set_direction(output::BinaryOutput *direction) { this->direction_ = direction; }
   fan::FanTraits get_traits() override;
 
  protected:
@@ -26,8 +25,6 @@ class IFan : public Component, public fan::Fan {
   void set_high();
   void beep(int num=1);
   void long_beep(int num=1);
-
-  output::BinaryOutput *direction_{nullptr};
   int speed_count_{};
 };
 
