@@ -27,48 +27,40 @@ void IFan::control(const fan::FanCall &call) {
     this->speed = *call.get_speed();
   if (call.get_direction().has_value())
     this->direction = *call.get_direction();
-
-  this->write_state_(call);
   this->publish_state();
+
+  this->write_state_();
 }
-void IFan::write_state_(const fan::FanCall &call) {
+void IFan::write_state_() {
     
   int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
   ESP_LOGD("IFAN", "State is %i", this->state);
 
   target_fan_speed = local_speed;
-  if (!this->state){
-    set_off();
-    target_fan_speed = 0;
-    call->set_state(false);
-  }else{
-    call->set_state(true);
-    switch (local_speed) {
-      case 0:
-        // OFF
-        set_off();
-        break;
-      case 1:
-        // low speed
-        set_low();
-        break;
-      case 2:
-        // medium speed
-        set_med();
-        break;
-      case 3:
-        // high speed
-        set_high();
-        break;
-      default:
-        set_off();
-        break;
-    } 
+  switch (local_speed) {
+    case 0:
+      // OFF
+      set_off();
+      break;
+    case 1:
+      // low speed
+      set_low();
+      break;
+    case 2:
+      // medium speed
+      set_med();
+      break;
+    case 3:
+      // high speed
+      set_high();
+      break;
+    default:
+      set_off();
+      break;
   }
-    call->set_state(state);
-    call->set_speed(local_speed);
-//  this->output_->set_level(speed);
+    
+  //this->output_->set_level(speed);
 
   if (this->direction_ != nullptr)
     this->direction_->set_state(this->direction == fan::FanDirection::REVERSE);

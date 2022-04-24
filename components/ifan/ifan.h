@@ -18,7 +18,7 @@ class IFan : public Component, public fan::Fan {
 
  protected:
   void control(const fan::FanCall &call) override;
-  void write_state_(const fan::FanCall &call);
+  void write_state_();
 
   void set_off();
   void set_low();
