@@ -40,28 +40,32 @@ void IFan::write_state_() {
   int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
   ESP_LOGD("IFAN", "State is %s", this->state ? "ON" : "OFF");
- 
-  switch (local_speed) {
-    case 0:
-      // OFF
-      set_off();
-      break;
-    case 1:
-      // low speed
-      set_low();
-      break;
-    case 2:
-      // medium speed
-      set_med();
-      break;
-    case 3:
-      // high speed
-      set_high();
-      break;
-    default:
-      set_off();
-      break;
+  if (this->current_speed != local_speed){
+    switch (local_speed) {
+      case 0:
+        // OFF
+        set_off();
+        break;
+      case 1:
+        // low speed
+        set_low();
+        break;
+      case 2:
+        // medium speed
+        set_med();
+        break;
+      case 3:
+        // high speed
+        set_high();
+        break;
+      default:
+        set_off();
+        break;
+    }
+  this->current_speed = local_speed;
   }
+  if (!this->state)
+    set_off();
   // this->output_->set_level(speed);
 
 }  // write_state_
