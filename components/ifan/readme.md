@@ -15,6 +15,10 @@ esphome:
   platform: ESP8266
   board: esp01_1m
 
+external_components:
+  - source: github://cpyarger/custom_components@master
+    #refresh: 0s
+
 # Disable logging on serial as it is used by the remote
 logger:
   baud_rate: 0
