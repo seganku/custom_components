@@ -13,11 +13,11 @@ class IFan : public Component, public fan::Fan {
   void setup() override;
   void dump_config() override;
   fan::FanTraits get_traits() override;
+  void set_buzzer_enable(bool buzzer_enable);
 
  protected:
   void control(const fan::FanCall &call) override;
   void write_state_();
-
   void set_off();
   void set_low();
   void set_med();
@@ -26,6 +26,7 @@ class IFan : public Component, public fan::Fan {
   void long_beep(int num=1);
   int speed_count_{};
   int current_speed=0;
+  bool buzzer_enable_;
 };
 
 }  // namespace speed

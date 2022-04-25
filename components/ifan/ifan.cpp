@@ -111,7 +111,10 @@ void IFan::set_high() {
 
   beep(3);
 }
+void IFan::set_buzzer_enable(bool buzzer_enable) { this->buzzer_enable_ = buzzer_enable; }
 void IFan::beep(int num) {
+  if (!this->buzzer_enable_)
+    return;
   for (int i = 0; i < num; i++) {
     digitalWrite(buzzer, LOW);
     delay(50);
@@ -120,6 +123,8 @@ void IFan::beep(int num) {
   }
 }
 void IFan::long_beep(int num) {
+  if (!this->buzzer_enable_)
+    return;
   for (int i = 0; i < num; i++) {
     ESP_LOGD("IFAN", "Long Beep");
     digitalWrite(buzzer, LOW);

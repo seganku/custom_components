@@ -63,7 +63,8 @@ fan:
   - platform: ifan
     id: the_fan
     name: "${friendly_name} Fan"
-    
+    # optional: allows you to disable the buzzer, enabled by default. 
+    # buzzer_enable: false 
 button:
   - platform: template
     name: ${friendly_name} Cycle Fan
