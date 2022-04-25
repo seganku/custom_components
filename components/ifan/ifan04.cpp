@@ -72,7 +72,7 @@ void IFan::handle_command_(uint8_t type, uint8_t param) {
         return;
         else
         ESP_LOGD(TAG, "command type %d param %d", type, param);
-        this->do_speed(param);
+        this->do_speed(param*30);
         return;
     }
     
