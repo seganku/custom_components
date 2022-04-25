@@ -17,6 +17,7 @@ class IFanLight : public light::LightOutput {
   }
   void write_state(light::LightState *state) override {
     bool binary;
+    pinMode(9, 0x01);
     state->current_values_as_binary(&binary);
     if (binary)
       digitalWrite(9, LOW);
