@@ -32,10 +32,10 @@ void IFan::control(const fan::FanCall &call) {
     this->state = *call.get_state();
   if (call.get_speed().has_value())
     this->speed = *call.get_speed();
+
   this->write_state_();
   this->publish_state();
 }
-
 void IFan::write_state_() {
   int local_speed = static_cast<int>(this->speed);
   ESP_LOGD("IFAN", "Setting Fan Speed %i", local_speed);
