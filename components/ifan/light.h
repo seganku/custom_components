@@ -23,14 +23,10 @@ class IFanLight : public light::LightOutput {
       digitalWrite(9, LOW);
     else
       digitalWrite(9, HIGH);
-    current_state = binary;
   }
- void toggle_light(){
-    this->state = !current_state;
-    write_state();
-  }
+  
  protected:
-  bool current_state;
+  bool test = false;
 };  // class
 }  // namespace ifan
 }  // namespace esphome
