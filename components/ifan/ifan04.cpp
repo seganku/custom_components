@@ -1,4 +1,4 @@
-#include "ifan04.h"
+#include "ifan.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
@@ -6,11 +6,11 @@ namespace ifan {
 
 static const char *TAG = "ifanRemote";
 
-void IFan04::dump_config() {
+void IFan::dump_config() {
   ESP_LOGCONFIG(TAG, "");
 }
 
-void IFan04::loop() {
+void IFan::loop() {
   while (this->available()) {
     uint8_t c;
     this->read_byte(&c);
@@ -18,7 +18,7 @@ void IFan04::loop() {
   }
 }
 
-void IFan04::handle_char_(uint8_t c) {
+void IFan::handle_char_(uint8_t c) {
   static int state = 0;
   static uint8_t type = 0;
   static uint8_t param = 0;
@@ -62,7 +62,7 @@ void IFan04::handle_char_(uint8_t c) {
   state++;
 }
 
-void IFan04::handle_command_(uint8_t type, uint8_t param) {
+void IFan::handle_command_(uint8_t type, uint8_t param) {
   if (type == 4) {
     if (param == 4)
       //this->light_trigger_->trigger();
@@ -74,7 +74,7 @@ void IFan04::handle_command_(uint8_t type, uint8_t param) {
   }
   ESP_LOGD(TAG, "unknown command type %d param %d", type, param);
 }
-void IFan04::output(const float state){
+void IFan::output(const float state){
 
 }
 }  // namespace ifan04

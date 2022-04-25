@@ -4,6 +4,8 @@
 #include "esphome/components/output/binary_output.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/fan/fan.h"
+#include "esphome/components/uart/uart.h"
+
 namespace esphome {
 namespace ifan {
 
@@ -30,6 +32,15 @@ class IFan : public Component, public fan::Fan {
   int current_speed=0;
   bool buzzer_enable_;
   bool remote_enable_;
+
+  // For Remote
+public:
+  void dump_config() override;
+  void loop() override;
+  void output(const float speed);
+ protected:
+  void handle_char_(uint8_t c);
+  void handle_command_(uint8_t type, uint8_t param);
 
 };
 

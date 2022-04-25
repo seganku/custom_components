@@ -11,14 +11,11 @@ BUZZER_ENABLE = "buzzer_enable"
 REMOTE_ENABLE = "remote_enable"
 
 ifan_ns = cg.esphome_ns.namespace("ifan")
-IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan)
-IFan04 = ifan_ns.class_('IFan04', cg.Component, uart.UARTDevice)
+IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan, uart.UARTDevice)
 
 CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(IFan),
-        cv.GenerateID(): cv.declare_id(IFan04),
-
         cv.Optional(BUZZER_ENABLE, default=True): cv.boolean,
         cv.Optional(REMOTE_ENABLE, default=True): cv.boolean,
     }
