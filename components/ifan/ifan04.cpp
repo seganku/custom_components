@@ -70,7 +70,7 @@ void IFan::handle_command_(uint8_t type, uint8_t param) {
     if (type == 4) {
         if (param == 4){
         ESP_LOGD(TAG, "command type %d param %d", type, param);
-        IFanLight::toggle();        
+        IFanLight->toggle();        
         //this->light_trigger_->trigger();
         return;
         }else{
