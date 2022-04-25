@@ -25,7 +25,7 @@ class IFanLight : public light::LightOutput {
       digitalWrite(9, HIGH);
     current_state = binary;
   }
-  static void toggle_light(){
+ void toggle_light(){
     this->state = !current_state;
     write_state();
   }
