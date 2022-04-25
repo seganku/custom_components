@@ -3,6 +3,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/output/binary_output.h"
 #include "esphome/components/light/light_output.h"
+#include "esphome/components/light/light_call.h"
 #include "esphome.h"
 
 namespace esphome {
@@ -16,17 +17,21 @@ class IFanLight : public light::LightOutput {
     return traits;
   }
   void write_state(light::LightState *state) override {
-    bool binary;
     pinMode(9, 0x01);
     state->current_values_as_binary(&binary);
+
     if (binary)
       digitalWrite(9, LOW);
     else
       digitalWrite(9, HIGH);
   }
-  
+  void toggle(){
+    x::set_state(!binary);
+  }
  protected:
-  bool test = false;
+  LightCall x;
+  
+  bool binary;
 };  // class
 }  // namespace ifan
 }  // namespace esphome
