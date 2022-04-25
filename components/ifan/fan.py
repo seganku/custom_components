@@ -19,15 +19,14 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
         cv.Optional(BUZZER_ENABLE, default=True): cv.boolean,
         cv.Optional(REMOTE_ENABLE, default=True): cv.boolean,
     }
-).extend(cv.COMPONENT_SCHEMA)
+).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_OUTPUT_ID])
     cg.add(var.set_buzzer_enable(config[BUZZER_ENABLE]))
     cg.add(var.set_remote_enable(config[REMOTE_ENABLE]))
     if REMOTE_ENABLE in config:
-        CONFIG_SCHEMA.extend(uart.UART_DEVICE_SCHEMA)
-        await cg.register_component(var, config)
+        #await cg.register_component(var, config)
         await uart.register_uart_device(var, config)
     await cg.register_component(var, config)
 
