@@ -25,7 +25,7 @@ class IFanLight : public light::LightOutput {
     else
       digitalWrite(9, HIGH);
   }
-  static void toggle(){
+ void toggle(){
    state_->toggle();
   }
 void setup_state(light::LightState *state) override {
