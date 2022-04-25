@@ -25,14 +25,14 @@ class IFanLight : public light::LightOutput {
     else
       digitalWrite(9, HIGH);
   }
- static void toggle(){
-   state_->toggle();
-  }
+ //static void toggle(){
+  // state_->toggle();
+ //}
 void setup_state(light::LightState *state) override {
     state_ = state;
   }
  protected:
-  static light::LightState *state_;
+ light::LightState *state_;
   bool binary;
 };  // class
 }  // namespace ifan
