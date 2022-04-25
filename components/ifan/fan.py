@@ -17,6 +17,8 @@ IFan04 = ifan_ns.class_('IFan04', cg.Component, uart.UARTDevice)
 CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(IFan),
+        cv.GenerateID(): cv.declare_id(IFan04),
+
         cv.Optional(BUZZER_ENABLE, default=True): cv.boolean,
         cv.Optional(REMOTE_ENABLE, default=True): cv.boolean,
     }
