@@ -68,7 +68,7 @@ void IFan::handle_command_(uint8_t type, uint8_t param) {
       this->do_speed(param);
     return;
   }
-  }
+  
   ESP_LOGD(TAG, "unknown command type %d param %d", type, param);
 }
 void IFan::output(const float state){
