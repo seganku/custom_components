@@ -1,4 +1,5 @@
 #include "ifan.h"
+#include "light.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
@@ -69,7 +70,7 @@ void IFan::handle_command_(uint8_t type, uint8_t param) {
     if (type == 4) {
         if (param == 4){
         ESP_LOGD(TAG, "command type %d param %d", type, param);
-        this->toggle_light();
+        IFanLight::toggle_light();
         //this->light_trigger_->trigger();
         return;
         }else{
