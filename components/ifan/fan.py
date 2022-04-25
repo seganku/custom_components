@@ -5,6 +5,8 @@ from esphome.const import (
     CONF_OUTPUT_ID,
 )
 
+DEPENDENCIES = ['uart']
+
 BUZZER_ENABLE = "buzzer_enable"
 REMOTE_ENABLE = "remote_enable"
 
@@ -25,8 +27,6 @@ async def to_code(config):
     cg.add(var.set_buzzer_enable(config[BUZZER_ENABLE]))
     cg.add(var.set_remote_enable(config[REMOTE_ENABLE]))
     if REMOTE_ENABLE in config:
-        DEPENDENCIES = ['uart']
-
         CONFIG_SCHEMA.extend(uart.UART_DEVICE_SCHEMA)
         await cg.register_component(var, config)
         await uart.register_uart_device(var, config)
