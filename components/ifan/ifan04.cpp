@@ -71,6 +71,7 @@ void IFan::handle_command_(uint8_t type, uint8_t param) {
         //this->light_trigger_->trigger();
         return;
         else
+        ESP_LOGD(TAG, "command type %d param %d", type, param);
         this->do_speed(param);
         return;
     }
