@@ -3,6 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import fan,uart
 from esphome.const import (
     CONF_OUTPUT_ID,
+    CONF_ID,
 )
 
 DEPENDENCIES = ['uart']

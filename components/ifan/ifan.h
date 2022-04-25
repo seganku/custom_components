@@ -9,7 +9,7 @@
 namespace esphome {
 namespace ifan {
 
-class IFan : public Component, public fan::Fan {
+class IFan : public Component, public fan::Fan , public uart::UARTDevice {
  public:
   IFan() {}
   void setup() override;
@@ -35,7 +35,6 @@ class IFan : public Component, public fan::Fan {
 
   // For Remote
 public:
-  void dump_config() override;
   void loop() override;
   void output(const float speed);
  protected:
