@@ -13,7 +13,8 @@ class IFan : public Component, public fan::Fan {
   void setup() override;
   void dump_config() override;
   fan::FanTraits get_traits() override;
-  void set_buzzer_enable(bool buzzer_enable);
+  void set_buzzer_enable(bool buzzer_enable) { this->buzzer_enable_ = buzzer_enable; }
+  void set_remote_enable(bool remote_enable) { this->remote_enable_ = remote_enable;};
 
  protected:
   void control(const fan::FanCall &call) override;
@@ -27,6 +28,8 @@ class IFan : public Component, public fan::Fan {
   int speed_count_{};
   int current_speed=0;
   bool buzzer_enable_;
+  bool remote_enable_;
+
 };
 
 }  // namespace speed
