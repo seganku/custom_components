@@ -23,6 +23,7 @@ class IFan : public Component, public fan::Fan {
   void set_low();
   void set_med();
   void set_high();
+  void do_speed(int lspeed);
   void beep(int num=1);
   void long_beep(int num=1);
   int speed_count_{};
