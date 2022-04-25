@@ -6,9 +6,6 @@ namespace ifan {
 
 static const char *TAG = "ifanRemote";
 
-void IFan::dump_config() {
-  ESP_LOGCONFIG(TAG, "");
-}
 
 void IFan::loop() {
   while (this->available()) {
