@@ -32,7 +32,7 @@ void setup_state(light::LightState *state) override {
     state_ = state;
   }
  protected:
-  light::LightState *state_;
+  static light::LightState *state_;
   bool binary;
 };  // class
 }  // namespace ifan
