@@ -5,7 +5,7 @@
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/fan/fan.h"
 #include "esphome/components/uart/uart.h"
-
+#include "esphome/core/automation.h"
 namespace esphome {
 namespace ifan {
 
