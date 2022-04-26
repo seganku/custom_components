@@ -11,6 +11,8 @@ namespace ifan {
 
 class IFan : public Component, public fan::Fan , public uart::UARTDevice {
  public:
+ static const char *const TAG = "IFAN";
+
   IFan() {}
   void setup() override;
   void dump_config() override;
@@ -42,6 +44,40 @@ public:
   void handle_command_(uint8_t type, uint8_t param);
 
 };
+template<typename... Ts> class CycleSpeedAction : public Action<Ts...> {
+ public:
+  explicit CycleSpeedAction(Fan *state) : state_(state) {}
 
+  void play(Ts... x) override {
+    // check to see if fan supports speeds and is on
+    if (this->state_->get_traits().supported_speed_count()) {
+      if (this->state_->state) {
+        int speed = this->state_->speed + 33;
+        int supported_speed_count = this->state_->get_traits().supported_speed_count();
+        if (speed > supported_speed_count) {
+          // was running at max speed, so turn off
+          speed = 1;
+          auto call = this->state_->turn_off();
+          call.set_speed(speed);
+          call.perform();
+        } else {
+          auto call = this->state_->turn_on();
+          call.set_speed(speed);
+          call.perform();
+        }
+      } else {
+        // fan was off, so set speed to 1
+        auto call = this->state_->turn_on();
+        call.set_speed(1);
+        call.perform();
+      }
+    } else {
+      // fan doesn't support speed counts, so toggle
+      this->state_->toggle().perform();
+    }
+  }
+
+  Fan *state_;
+};
 }  // namespace speed
 }  // namespace esphome

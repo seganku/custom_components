@@ -5,8 +5,6 @@
 namespace esphome {
 namespace ifan {
 
-static const char *TAG = "ifanRemote";
-
 
 void IFan::loop() {
     if (!remote_enable_)
@@ -67,20 +65,18 @@ void IFan::handle_char_(uint8_t c) {
 void IFan::handle_command_(uint8_t type, uint8_t param) {
     if (!remote_enable_)
         return;
+        ESP_LOGD(TAG, "command type %d param %d", type, param);
+
     if (type == 4) {
         if (param == 4){
-        ESP_LOGD(TAG, "command type %d param %d", type, param);
         //IFanLight::toggle();        
         //this->light_trigger_->trigger();
         return;
         }else{
-        ESP_LOGD(TAG, "command type %d param %d", type, param);
         this->do_speed(param*30);
         return;
         }
     }
-    
-    ESP_LOGD(TAG, "unknown command type %d param %d", type, param);
 }
 void IFan::output(const float state){
 
