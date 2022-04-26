@@ -47,7 +47,7 @@ public:
 };
 template<typename... Ts> class CycleSpeedAction : public Action<Ts...> {
  public:
-  explicit CycleSpeedAction(Fan *state) : state_(state) {}
+  explicit CycleSpeedAction(IFan *state) : state_(state) {}
 
   void play(Ts... x) override {
     // check to see if fan supports speeds and is on
