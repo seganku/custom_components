@@ -20,7 +20,7 @@ class IFan : public Component, public fan::Fan , public uart::UARTDevice {
   fan::FanTraits get_traits() override;
   void set_buzzer_enable(bool buzzer_enable) { this->buzzer_enable_ = buzzer_enable; }
   void set_remote_enable(bool remote_enable) { this->remote_enable_ = remote_enable;};
-  FanState *state_;
+  bool *state_;
 
  protected:
   void control(const fan::FanCall &call) override;
