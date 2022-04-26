@@ -9,7 +9,7 @@ namespace ifan {
 #define relay_1 14
 #define relay_2 12
 #define relay_3 15
-static const char *const TAG = "IFAN";
+#define TAG "IFAN"
 int target_fan_speed;
 int start_time_offset;
 void IFan::setup() {

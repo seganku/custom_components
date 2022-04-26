@@ -11,7 +11,7 @@ namespace ifan {
 
 class IFan : public Component, public fan::Fan , public uart::UARTDevice {
  public:
- static const char *const TAG = "IFAN";
+#define TAG "IFAN"
 
   IFan() {}
   void setup() override;
