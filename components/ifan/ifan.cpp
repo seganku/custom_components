@@ -22,6 +22,7 @@ void IFan::setup() {
   if (restore.has_value()) {
     restore->apply(*this);
     this->current_speed = this->speed;
+    this->state_ = this->state;
     this->write_state_();
   }
 }

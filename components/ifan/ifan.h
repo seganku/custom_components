@@ -20,6 +20,7 @@ class IFan : public Component, public fan::Fan , public uart::UARTDevice {
   fan::FanTraits get_traits() override;
   void set_buzzer_enable(bool buzzer_enable) { this->buzzer_enable_ = buzzer_enable; }
   void set_remote_enable(bool remote_enable) { this->remote_enable_ = remote_enable;};
+  FanState *state_;
 
  protected:
   void control(const fan::FanCall &call) override;
@@ -35,7 +36,6 @@ class IFan : public Component, public fan::Fan , public uart::UARTDevice {
   int current_speed=0;
   bool buzzer_enable_;
   bool remote_enable_;
-
   // For Remote
 public:
   void loop() override;
@@ -78,7 +78,7 @@ template<typename... Ts> class CycleSpeedAction : public Action<Ts...> {
     }
   }
 
-  Fan *state_;
+  IFan *state_;
 };
 }  // namespace speed
 }  // namespace esphome
