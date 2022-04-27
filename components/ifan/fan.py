@@ -27,7 +27,7 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
 ).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
 FAN_ACTION_SCHEMA = maybe_simple_id(
     {
-        cv.Required(CONF_ID): cv.use_id(I   Fan),
+        cv.Required(CONF_ID): cv.use_id(IFan),
     }
 )
 @automation.register_action("ifan.cycle_speed", CycleSpeedAction, FAN_ACTION_SCHEMA)
