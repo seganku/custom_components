@@ -35,8 +35,10 @@ async def fan_cycle_speed_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     return cg.new_Pvariable(action_id, template_arg, paren)
 
+@coroutine_with_priority(100.0)
 
 async def to_code(config):
+    cg.add_define("USE_FAN")
     var = cg.new_Pvariable(config[CONF_OUTPUT_ID])
     cg.add(var.set_buzzer_enable(config[BUZZER_ENABLE]))
     cg.add(var.set_remote_enable(config[REMOTE_ENABLE]))
@@ -46,3 +48,6 @@ async def to_code(config):
     await cg.register_component(var, config)
 
     await fan.register_fan(var, config)
+
+    
+    cg.add_global(ifan_ns.using)
