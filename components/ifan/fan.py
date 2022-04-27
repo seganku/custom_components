@@ -1,6 +1,9 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import fan,uart
+from esphome import automation
+from esphome.automation import maybe_simple_id
+
 from esphome.const import (
     CONF_OUTPUT_ID,
     CONF_ID,
@@ -13,6 +16,7 @@ REMOTE_ENABLE = "remote_enable"
 
 ifan_ns = cg.esphome_ns.namespace("ifan")
 IFan = ifan_ns.class_("IFan", cg.Component, fan.Fan, uart.UARTDevice)
+CycleSpeedAction = ifan_ns.class_("CycleSpeedAction", automation.Action)
 
 CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
     {
@@ -21,6 +25,16 @@ CONFIG_SCHEMA = fan.FAN_SCHEMA.extend(
         cv.Optional(REMOTE_ENABLE, default=True): cv.boolean,
     }
 ).extend(cv.COMPONENT_SCHEMA).extend(uart.UART_DEVICE_SCHEMA)
+FAN_ACTION_SCHEMA = maybe_simple_id(
+    {
+        cv.Required(CONF_ID): cv.use_id(I   Fan),
+    }
+)
+@automation.register_action("ifan.cycle_speed", CycleSpeedAction, FAN_ACTION_SCHEMA)
+async def fan_cycle_speed_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    return cg.new_Pvariable(action_id, template_arg, paren)
+
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_OUTPUT_ID])
