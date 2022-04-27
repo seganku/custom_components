@@ -8,6 +8,7 @@ from esphome.const import (
     CONF_OUTPUT_ID,
     CONF_ID,
 )
+from esphome.core import  coroutine_with_priority
 
 DEPENDENCIES = ['uart']
 
