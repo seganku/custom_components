@@ -279,9 +279,9 @@ void ST7796WT32::initialize() {
   //this->fill_internal_(Color::BLACK);
   //this->fill_internal_(ST7796colors::RED);
   //this->fill_internal_(ST7796colors::GREEN);
-  //this->fill_internal_(ST7796colors::BLUE);
+  this->fill_internal_(ST7796colors::BLUE);
   //this->fill_internal_(Color::WHITE);
-  this->fill(Color::WHITE);
+  //this->fill(Color::WHITE);
 
 }
 const Color ST7796colors::RED(255, 0, 0, 0);
