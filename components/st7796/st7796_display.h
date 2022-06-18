@@ -20,9 +20,10 @@ enum ST7796ColorMode {
   BITS_8_INDEXED,
 };
 struct ST7796colors{
- auto red = Color::Color(255,0,0);
- auto green = Color::Color(0,25,0);
- auto blue = Color::Color(0,0,255);
+ static const Color RED;
+ static const Color GREEN;
+ static const Color BLUE;
+
 }
 class ST7796Display : public PollingComponent,
                        public display::DisplayBuffer,
