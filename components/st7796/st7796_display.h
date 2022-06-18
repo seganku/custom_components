@@ -30,7 +30,7 @@ class ST7796Display : public PollingComponent,
   void set_led_pin(GPIOPin *led) { this->led_pin_ = led; }
   void set_model(ST7796Model model) { this->model_ = model; }
   void set_palette(const uint8_t *palette) { this->palette_ = palette; }
-  void set_buffer_color_mode(ILI9341ColorMode color_mode) { this->buffer_color_mode_ = color_mode; }
+  void set_buffer_color_mode(ST7796ColorMode color_mode) { this->buffer_color_mode_ = color_mode; }
 
   void command(uint8_t value);
   void data(uint8_t value);
