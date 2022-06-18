@@ -80,7 +80,7 @@ class ST7796Display : public PollingComponent,
   void start_data_();
   void end_data_();
 
-  uint8_t transfer_buffer_[64];
+  uint8_t transfer_buffer_[256];
 
   uint32_t buffer_to_transfer_(uint32_t pos, uint32_t sz);
 
