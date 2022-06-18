@@ -182,12 +182,12 @@ void HOT ST7796Display::draw_absolute_pixel_internal(int x, int y, Color color) 
 
   uint32_t pos = (y * width_) + x;
   auto color565 = display::ColorUtil::color_to_565(color);
-  buffer_[pos] = convert_to_16bit_color_(color565);
+  buffer_[pos] = convert_to_8bit_color_(color565);
 }
 
 // should return the total size: return this->get_width_internal() * this->get_height_internal() * 2 // 16bit color
 // values per bit is huge
-uint32_t ST7796Display::get_buffer_length_() { return this->get_width_internal() * this->get_height_internal() *2; }
+uint32_t ST7796Display::get_buffer_length_() { return this->get_width_internal() * this->get_height_internal(); }
 
 void ST7796Display::start_command_() {
   this->dc_pin_->digital_write(false);
@@ -247,7 +247,7 @@ uint32_t ST7796Display::buffer_to_transfer_(uint32_t pos, uint32_t sz) {
   }
 
   for (uint32_t i = 0; i < sz; ++i) {
-    uint16_t color = convert_to_16bit_color_(*src++);
+    uint16_t color = convert_to_8bit_color_(*src++);
     *dst++ = (uint8_t)(color >> 8);
     *dst++ = (uint8_t) color;
   }
@@ -274,8 +274,8 @@ void ST7796TFT24::initialize() {
 
 void ST7796WT32::initialize() {
   this->init_lcd_(INITCMD_M5STACK);
-  this->width_ = 320;
-  this->height_ = 480;
+  this->width_ = 480;
+  this->height_ = 320;
   this->fill_internal_(Color::random_color());
 }
 
