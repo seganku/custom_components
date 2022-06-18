@@ -19,6 +19,11 @@ enum ST7796ColorMode {
   BITS_8,
   BITS_8_INDEXED,
 };
+struct ST7796colors{
+ Color red(255,0,0);
+ Color green(0,25,0);
+ Color blue(0,0,255);
+}
 class ST7796Display : public PollingComponent,
                        public display::DisplayBuffer,
                        public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_LOW,
