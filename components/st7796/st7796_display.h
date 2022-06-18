@@ -92,6 +92,8 @@ class ST7796Display : public PollingComponent,
   ST7796Model model_;
   int16_t width_{480};   ///< Display width as modified by current rotation
   int16_t height_{320};  ///< Display height as modified by current rotation
+    uint16_t x_high_{0};
+  uint16_t y_high_{0};
   uint16_t x_low_{0};
   uint16_t y_low_{0};
   uint16_t x_true_{0};
