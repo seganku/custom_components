@@ -149,7 +149,7 @@ void ST7796Display::fill_internal_(Color color) {
     auto color565 = display::ColorUtil::color_to_565(color);
 
     while (dst < transfer_buffer_ + sizeof(transfer_buffer_)) {
-      *dst++ = (uint8_t)(color565 >> 8);
+      *dst++ = (uint8_t)(color565 >> 16);
       *dst++ = (uint8_t) color565;
     }
   }
