@@ -134,7 +134,7 @@ uint8_t ST7796Display::convert_to_8bit_color_(uint16_t color_16bit) {
 
 void ST7796Display::fill(Color color) {
   auto color565 = display::ColorUtil::color_to_565(color);
-  memset(this->buffer_, convert_to_8bit_color_(color565), this->get_buffer_length_());
+  memset(this->buffer_, convert_to_16bit_color_(color565), this->get_buffer_length_());
   this->x_low_ = 0;
   this->y_low_ = 0;
   this->x_high_ = this->get_width_internal() - 1;
@@ -182,12 +182,12 @@ void HOT ST7796Display::draw_absolute_pixel_internal(int x, int y, Color color) 
 
   uint32_t pos = (y * width_) + x;
   auto color565 = display::ColorUtil::color_to_565(color);
-  buffer_[pos] = convert_to_8bit_color_(color565);
+  buffer_[pos] = convert_to_16bit_color_(color565);
 }
 
 // should return the total size: return this->get_width_internal() * this->get_height_internal() * 2 // 16bit color
 // values per bit is huge
-uint32_t ST7796Display::get_buffer_length_() { return this->get_width_internal() * this->get_height_internal(); }
+uint32_t ST7796Display::get_buffer_length_() { return this->get_width_internal() * this->get_height_internal() *2; }
 
 void ST7796Display::start_command_() {
   this->dc_pin_->digital_write(false);
