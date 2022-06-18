@@ -289,6 +289,14 @@ void ST7796WT32::initialize() {
 const Color ST7796colors::RED(255, 0, 0, 0);
 const Color ST7796colors::GREEN(0, 255, 0, 0);
 const Color ST7796colors::BLUE(0, 0, 255, 0);
+void ST7796Display::Lcd_writeregs(unsigned char data,bool type=false)
+{
+  LCD_CS_CLR; //low
+  (type==true)?LCD_RS_CLR:LCD_RS_SET;
+  SPI.transfer(data);
+   LCD_CS_SET;  //low
+}
+
 void ST7796Display::Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end)
 {    
   Lcd_writeregs(0x2a,true);
