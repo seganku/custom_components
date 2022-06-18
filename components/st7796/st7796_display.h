@@ -35,13 +35,13 @@ class ST7796Display : public PollingComponent,
   void Lcd_Clear(unsigned int color);
 
 
-  #define LCD_CS_SET (  this->dc_pin_->digitalWrite(HIGH))
-  #define LCD_RST_SET (this->reset_pin_->digitalWrite(HIGH))
-  #define LCD_RS_SET (this->busy_pin_->digitalWrite(HIGH))
-  #define LED_SET (this->led_pin_->digitalWrite(HIGH))
-  #define LCD_CS_CLR ( this->dc_pin_->digitalWrite(LOW))
-  #define LCD_RST_CLR (this->reset_pin_->digitalWrite(LOW))
-  #define LCD_RS_CLR (this->busy_pin_->digitalWrite(LOW))
+  #define LCD_CS_SET (  this->dc_pin_->digital_write(HIGH))
+  #define LCD_RST_SET (this->reset_pin_->digital_write(HIGH))
+  #define LCD_RS_SET (this->busy_pin_->digital_write(HIGH))
+  #define LED_SET (this->led_pin_->digital_write(HIGH))
+  #define LCD_CS_CLR ( this->dc_pin_->digital_write(LOW))
+  #define LCD_RST_CLR (this->reset_pin_->digital_write(LOW))
+  #define LCD_RS_CLR (this->busy_pin_->digital_write(LOW))
 
 
 
@@ -51,7 +51,7 @@ class ST7796Display : public PollingComponent,
   void Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end);
   void spi_init(void);
 
-  void Lcd_writeregs(unsigned char data,boolean type=false);
+  void Lcd_writeregs(unsigned char data,bool type=false);
 
   float get_setup_priority() const override;
   void set_reset_pin(GPIOPin *reset) { this->reset_pin_ = reset; }
