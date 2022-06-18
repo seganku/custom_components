@@ -242,9 +242,9 @@ uint32_t ST7796Display::buffer_to_transfer_(uint32_t pos, uint32_t sz) {
   uint8_t *src = buffer_ + pos;
   uint8_t *dst = transfer_buffer_;
 
-  if (sz > sizeof(transfer_buffer_) / 2) {
-    sz = sizeof(transfer_buffer_) / 2;
-  }
+  //if (sz > sizeof(transfer_buffer_) / 2) {
+  //  sz = sizeof(transfer_buffer_) / 2;
+  //}
 
   for (uint32_t i = 0; i < sz; ++i) {
     uint16_t color = convert_to_8bit_color_(*src++);
@@ -273,7 +273,7 @@ void ST7796TFT24::initialize() {
 }
 
 void ST7796WT32::initialize() {
-  this->init_lcd_(INITCMD_M5STACK);
+  this->init_lcd_(INITCMD_TFT);
   this->width_ = 480;
   this->height_ = 320;
   this->fill_internal_(Color::random_color());
