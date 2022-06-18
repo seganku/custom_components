@@ -62,8 +62,8 @@ class ST7796Display : public PollingComponent,
   uint8_t convert_to_8bit_color_(uint16_t color_16bit);
 
   ST7796Model model_;
-  int16_t width_{320};   ///< Display width as modified by current rotation
-  int16_t height_{480};  ///< Display height as modified by current rotation
+  int16_t width_{480};   ///< Display width as modified by current rotation
+  int16_t height_{320};  ///< Display height as modified by current rotation
   uint16_t x_low_{0};
   uint16_t y_low_{0};
   uint16_t x_high_{0};
