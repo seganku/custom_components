@@ -278,9 +278,8 @@ void ST7796WT32::initialize() {
   this->height_ = 480;
   this->fill_internal_(ST7796colors::RED);
 }
-
-}  // namespace st7796
-}  // namespace esphome
 const Color ST7796colors::RED(255, 0, 0, 0);
 const Color ST7796colors::GREEN(0, 255, 0, 0);
 const Color ST7796colors::BLUE(0, 0, 255, 0);
+}  // namespace st7796
+}  // namespace esphome
