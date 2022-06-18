@@ -30,29 +30,7 @@ class ST7796Display : public PollingComponent,
                        public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_LOW,
                                              spi::CLOCK_PHASE_LEADING, spi::DATA_RATE_40MHZ> {
  public:
-
-  void Lcd_Init(void);
-  void Lcd_Clear(unsigned int color);
-
-
-  #define LCD_CS_SET (  this->dc_pin_->digital_write(true))
-  #define LCD_RST_SET (this->reset_pin_->digital_write(true))
-  #define LCD_RS_SET (this->busy_pin_->digital_write(true))
-  #define LED_SET (this->led_pin_->digital_write(true))
-  #define LCD_CS_CLR ( this->dc_pin_->digital_write(false))
-  #define LCD_RST_CLR (this->reset_pin_->digital_write(false))
-  #define LCD_RS_CLR (this->busy_pin_->digital_write(false))
-
-
-
-  void Lcd_Reset(void);
-  void LCD_WriteData_16Bit(unsigned int data);
   void set_dc_pin(GPIOPin *dc_pin) { dc_pin_ = dc_pin; }
-  void Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end);
-  void spi_init(void);
-
-  void Lcd_writeregs(unsigned char data,bool type);
-
   float get_setup_priority() const override;
   void set_reset_pin(GPIOPin *reset) { this->reset_pin_ = reset; }
   void set_led_pin(GPIOPin *led) { this->led_pin_ = led; }
@@ -92,12 +70,10 @@ class ST7796Display : public PollingComponent,
   ST7796Model model_;
   int16_t width_{480};   ///< Display width as modified by current rotation
   int16_t height_{320};  ///< Display height as modified by current rotation
-    uint16_t x_high_{0};
-  uint16_t y_high_{0};
   uint16_t x_low_{0};
   uint16_t y_low_{0};
-  uint16_t x_true_{0};
-  uint16_t y_true_{0};
+  uint16_t x_high_{0};
+  uint16_t y_high_{0};
   const uint8_t *palette_;
   ST7796ColorMode buffer_color_mode_{BITS_8};
 
@@ -136,6 +112,5 @@ class ST7796WT32 : public ST7796Display {
  public:
   void initialize() override;
 };
-
 }  // namespace st7796
 }  // namespace esphome
