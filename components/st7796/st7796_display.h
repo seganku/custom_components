@@ -33,32 +33,19 @@ class ST7796Display : public PollingComponent,
 
   void Lcd_Init(void);
   void Lcd_Clear(unsigned int color);
-  #define X_MAX_PIXEL 320
-#define Y_MAX_PIXEL 480
-
-#define LCD_CS  D1
-#define LCD_RST D2
-#define LCD_RS  D3
-#define LED D0
 
 
-#define LCD_CS_SET (digitalWrite(LCD_CS,HIGH))
-#define LCD_RST_SET (digitalWrite(LCD_RST,HIGH))
-#define LCD_RS_SET (digitalWrite(LCD_RS,HIGH))
-#define LED_SET (digitalWrite(LED,HIGH))
+  #define LCD_CS_SET (  this->dc_pin_->digitalWrite(HIGH))
+  #define LCD_RST_SET (this->reset_pin_->digitalWrite(HIGH))
+  #define LCD_RS_SET (this->busy_pin_->digitalWrite(HIGH))
+  #define LED_SET (this->led_pin_->digitalWrite(HIGH))
+  #define LCD_CS_CLR ( this->dc_pin_->digitalWrite(LOW))
+  #define LCD_RST_CLR (this->reset_pin_->digitalWrite(LOW))
+  #define LCD_RS_CLR (this->busy_pin_->digitalWrite(LOW))
 
 
-#define LCD_CS_CLR (digitalWrite(LCD_CS,LOW))
-#define LCD_RST_CLR (digitalWrite(LCD_RST,LOW))
-#define LCD_RS_CLR (digitalWrite(LCD_RS,LOW))
 
-
-#define BLACK 0x0000
-#define WHITE 0xFFFF
-#define RED 0xF800
-#define GREEN 0x07E0
-#define BLUE  0x001F
-void Lcd_Reset(void);
+  void Lcd_Reset(void);
   void LCD_WriteData_16Bit(unsigned int data);
   void set_dc_pin(GPIOPin *dc_pin) { dc_pin_ = dc_pin; }
   void Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end);
