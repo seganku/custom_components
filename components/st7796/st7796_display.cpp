@@ -276,7 +276,7 @@ void ST7796WT32::initialize() {
   this->init_lcd_(INITCMD_TFT);
   this->width_ = 320;
   this->height_ = 240;
-  this->fill_internal_(Color::RED);
+  this->fill_internal_(Color::red);
 }
 
 }  // namespace st7796
