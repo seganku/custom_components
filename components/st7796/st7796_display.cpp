@@ -276,7 +276,16 @@ void ST7796WT32::initialize() {
   this->init_lcd_(INITCMD_TFT);
   this->width_ = 320;
   this->height_ = 480;
+  this->fill_internal_(Color::BLACK);
+  delay(500);
   this->fill_internal_(ST7796colors::RED);
+  delay(500);
+  this->fill_internal_(ST7796colors::GREEN);
+  delay(500);
+  this->fill_internal_(ST7796colors::BLUE);
+  delay(500);
+  this->fill_internal_(Color::WHITE);
+
 }
 const Color ST7796colors::RED(255, 0, 0, 0);
 const Color ST7796colors::GREEN(0, 255, 0, 0);
