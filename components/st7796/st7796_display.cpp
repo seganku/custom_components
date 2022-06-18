@@ -273,7 +273,9 @@ void ST7796TFT24::initialize() {
 }
 
 void ST7796WT32::initialize() {
-  this->init_lcd_(INITCMD_test);
+  //this->init_lcd_(INITCMD_test);
+  Lcd_Reset();
+  Lcd_Init();
   this->width_ = 360;
   this->height_ = 1000;
   //this->fill_internal_(Color::BLACK);
@@ -287,5 +289,147 @@ void ST7796WT32::initialize() {
 const Color ST7796colors::RED(255, 0, 0, 0);
 const Color ST7796colors::GREEN(0, 255, 0, 0);
 const Color ST7796colors::BLUE(0, 0, 255, 0);
+void ST7796Display::Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end)
+{    
+  Lcd_writeregs(0x2a,true);
+  Lcd_writeregs(x_start>>8);
+  Lcd_writeregs(x_start);
+  Lcd_writeregs(x_end>>8);
+  Lcd_writeregs(x_end);
+
+  Lcd_writeregs(0x2b,true);
+  Lcd_writeregs(y_start>>8);
+  Lcd_writeregs(y_start);
+  Lcd_writeregs(y_end>>8);
+  Lcd_writeregs(y_end);
+  
+  Lcd_writeregs(0x2c,true);
+}
+
+void ST7796Display::Lcd_Reset(void)
+{
+  LCD_RST_CLR;
+  delay(20);
+  LCD_RST_SET;
+  delay(10);
+}
+
+void ST7796Display::LCD_WriteData_16Bit(unsigned int data)
+{
+  Lcd_writeregs((data>>8)&0xF8);//RED
+  Lcd_writeregs((data>>3)&0xFC);//GREEN
+  Lcd_writeregs(data<<3);//BLUE
+}
+
+void ST7796Display::Lcd_Clear(unsigned int color)               
+{  
+   unsigned int i,m;
+   Lcd_SetRegion(0,0,X_MAX_PIXEL-1,Y_MAX_PIXEL-1);
+   for(i=0;i<Y_MAX_PIXEL;i++)
+   {
+    delay(0); //must be set
+    for(m=0;m<X_MAX_PIXEL;m++)
+    { 
+      LCD_WriteData_16Bit(color);      
+    }   
+   }
+}
+
+void ST7796Display::Lcd_Init(void)
+{  
+  Lcd_Reset(); //Reset before LCD Init.
+
+  Lcd_writeregs(0xA7,true);
+  Lcd_writeregs(0xB0,true);
+  Lcd_writeregs(0x80);
+
+  Lcd_writeregs(0xB1,true);
+  Lcd_writeregs(0x80);  
+  Lcd_writeregs(0x10);
+
+  Lcd_writeregs(0xB4,true);
+  Lcd_writeregs(0x00);
+
+  Lcd_writeregs(0xB5,true);
+  Lcd_writeregs(0x02);
+  Lcd_writeregs(0x03);
+  Lcd_writeregs(0x00);
+  Lcd_writeregs(0x04);
+
+  Lcd_writeregs(0xB6,true);
+  Lcd_writeregs(0x00);
+  Lcd_writeregs(0x02);
+
+  Lcd_writeregs(0xB7,true);
+  Lcd_writeregs(0xc6);
+
+  Lcd_writeregs(0xC2,true);
+
+  Lcd_writeregs(0xC5,true);
+  Lcd_writeregs(0x24);
+
+  Lcd_writeregs(0xE0,true);
+  Lcd_writeregs(0xF0);
+  Lcd_writeregs(0x09);
+  Lcd_writeregs(0x13);
+  Lcd_writeregs(0x12);
+  Lcd_writeregs(0x12);
+  Lcd_writeregs(0x2B);
+  Lcd_writeregs(0x3C);
+  Lcd_writeregs(0x44);
+  Lcd_writeregs(0x4B);
+  Lcd_writeregs(0x1B);
+  Lcd_writeregs(0x18);
+  Lcd_writeregs(0x17);
+  Lcd_writeregs(0x1D);
+  Lcd_writeregs(0x21);
+
+  Lcd_writeregs(0XE1,true);
+  Lcd_writeregs(0xF0);
+  Lcd_writeregs(0x09);
+  Lcd_writeregs(0x13);
+  Lcd_writeregs(0x0C);
+  Lcd_writeregs(0x0D);
+  Lcd_writeregs(0x27);
+  Lcd_writeregs(0x3B);
+  Lcd_writeregs(0x44);
+  Lcd_writeregs(0x4D);
+  Lcd_writeregs(0x0B);
+  Lcd_writeregs(0x17);
+  Lcd_writeregs(0x17);
+  Lcd_writeregs(0x1D);
+  Lcd_writeregs(0x21);
+
+  Lcd_writeregs(0xE4,true);
+  Lcd_writeregs(0x31);
+
+  Lcd_writeregs(0xE8,true);
+  Lcd_writeregs(0x40);
+  Lcd_writeregs(0x8A);
+  Lcd_writeregs(0x00);
+  Lcd_writeregs(0x00);
+  Lcd_writeregs(0x29);
+  Lcd_writeregs(0x19);
+  Lcd_writeregs(0xA5);
+  Lcd_writeregs(0x33);
+
+  Lcd_writeregs(0xF0,true);
+  Lcd_writeregs(0xC3);
+
+  Lcd_writeregs(0xF0,true);
+  Lcd_writeregs(0x69);
+
+  Lcd_writeregs(0x3A,true);
+  Lcd_writeregs(0x66);
+
+  Lcd_writeregs(0x36,true);
+  Lcd_writeregs(0x48);
+
+  Lcd_writeregs(0X13,true);
+
+  Lcd_writeregs(0X11,true);
+  delay(10);
+  Lcd_writeregs(0X29,true);
+}
 }  // namespace st7796
 }  // namespace esphome

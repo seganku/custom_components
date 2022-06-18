@@ -30,7 +30,42 @@ class ST7796Display : public PollingComponent,
                        public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_LOW,
                                              spi::CLOCK_PHASE_LEADING, spi::DATA_RATE_40MHZ> {
  public:
+
+  void Lcd_Init(void);
+  void Lcd_Clear(unsigned int color);
+  #define X_MAX_PIXEL 320
+#define Y_MAX_PIXEL 480
+
+#define LCD_CS  D1
+#define LCD_RST D2
+#define LCD_RS  D3
+#define LED D0
+
+
+#define LCD_CS_SET (digitalWrite(LCD_CS,HIGH))
+#define LCD_RST_SET (digitalWrite(LCD_RST,HIGH))
+#define LCD_RS_SET (digitalWrite(LCD_RS,HIGH))
+#define LED_SET (digitalWrite(LED,HIGH))
+
+
+#define LCD_CS_CLR (digitalWrite(LCD_CS,LOW))
+#define LCD_RST_CLR (digitalWrite(LCD_RST,LOW))
+#define LCD_RS_CLR (digitalWrite(LCD_RS,LOW))
+
+
+#define BLACK 0x0000
+#define WHITE 0xFFFF
+#define RED 0xF800
+#define GREEN 0x07E0
+#define BLUE  0x001F
+void Lcd_Reset(void);
+  void LCD_WriteData_16Bit(unsigned int data);
   void set_dc_pin(GPIOPin *dc_pin) { dc_pin_ = dc_pin; }
+  void Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end);
+  void spi_init(void);
+
+  void Lcd_writeregs(unsigned char data,boolean type=false)
+
   float get_setup_priority() const override;
   void set_reset_pin(GPIOPin *reset) { this->reset_pin_ = reset; }
   void set_led_pin(GPIOPin *led) { this->led_pin_ = led; }
@@ -112,5 +147,6 @@ class ST7796WT32 : public ST7796Display {
  public:
   void initialize() override;
 };
+
 }  // namespace st7796
 }  // namespace esphome
