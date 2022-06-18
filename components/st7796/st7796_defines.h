@@ -15,7 +15,7 @@ static const uint8_t MADCTL_MH    = 0x04;   ///< Bit 2 LCD refresh right to left
 // clang-format on
 
 static const uint16_t ST7796_TFTWIDTH = 320;   ///< ST7796 max TFT width
-static const uint16_t ST7796_TFTHEIGHT = 240;  ///< ST7796 max TFT height
+static const uint16_t ST7796_TFTHEIGHT = 480;  ///< ST7796 max TFT height
 
 // All ST7796 specific commands some are used by init()
 static const uint8_t ST7796_NOP = 0x00;
