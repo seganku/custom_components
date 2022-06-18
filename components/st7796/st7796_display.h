@@ -35,13 +35,13 @@ class ST7796Display : public PollingComponent,
   void Lcd_Clear(unsigned int color);
 
 
-  #define LCD_CS_SET (  this->dc_pin_->digital_write(HIGH))
-  #define LCD_RST_SET (this->reset_pin_->digital_write(HIGH))
-  #define LCD_RS_SET (this->busy_pin_->digital_write(HIGH))
-  #define LED_SET (this->led_pin_->digital_write(HIGH))
-  #define LCD_CS_CLR ( this->dc_pin_->digital_write(LOW))
-  #define LCD_RST_CLR (this->reset_pin_->digital_write(LOW))
-  #define LCD_RS_CLR (this->busy_pin_->digital_write(LOW))
+  #define LCD_CS_SET (  this->dc_pin_->digital_write(true))
+  #define LCD_RST_SET (this->reset_pin_->digital_write(true))
+  #define LCD_RS_SET (this->busy_pin_->digital_write(true))
+  #define LED_SET (this->led_pin_->digital_write(true))
+  #define LCD_CS_CLR ( this->dc_pin_->digital_write(false))
+  #define LCD_RST_CLR (this->reset_pin_->digital_write(false))
+  #define LCD_RS_CLR (this->busy_pin_->digital_write(false))
 
 
 
@@ -94,8 +94,8 @@ class ST7796Display : public PollingComponent,
   int16_t height_{320};  ///< Display height as modified by current rotation
   uint16_t x_low_{0};
   uint16_t y_low_{0};
-  uint16_t x_high_{0};
-  uint16_t y_high_{0};
+  uint16_t x_true_{0};
+  uint16_t y_true_{0};
   const uint8_t *palette_;
   ST7796ColorMode buffer_color_mode_{BITS_8};
 

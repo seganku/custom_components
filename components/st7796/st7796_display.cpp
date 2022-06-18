@@ -324,11 +324,11 @@ void ST7796Display::LCD_WriteData_16Bit(unsigned int data)
 void ST7796Display::Lcd_Clear(unsigned int color)               
 {  
    unsigned int i,m;
-   Lcd_SetRegion(0,0,X_MAX_PIXEL-1,Y_MAX_PIXEL-1);
-   for(i=0;i<Y_MAX_PIXEL;i++)
+   Lcd_SetRegion(0,0,this->height_-1,this->width_-1);
+   for(i=0;i<this->width_;i++)
    {
     delay(0); //must be set
-    for(m=0;m<X_MAX_PIXEL;m++)
+    for(m=0;m<this->height_;m++)
     { 
       LCD_WriteData_16Bit(color);      
     }   
