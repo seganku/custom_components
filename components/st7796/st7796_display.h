@@ -24,7 +24,7 @@ struct ST7796colors{
  static const Color GREEN;
  static const Color BLUE;
 
-}
+};
 class ST7796Display : public PollingComponent,
                        public display::DisplayBuffer,
                        public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_LOW,
