@@ -51,7 +51,7 @@ class ST7796Display : public PollingComponent,
   void Lcd_SetRegion(unsigned int x_start,unsigned int y_start,unsigned int x_end,unsigned int y_end);
   void spi_init(void);
 
-  void Lcd_writeregs(unsigned char data,bool type=false);
+  void Lcd_writeregs(unsigned char data,bool type);
 
   float get_setup_priority() const override;
   void set_reset_pin(GPIOPin *reset) { this->reset_pin_ = reset; }
