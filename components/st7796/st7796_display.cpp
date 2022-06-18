@@ -277,13 +277,9 @@ void ST7796WT32::initialize() {
   this->width_ = 320;
   this->height_ = 480;
   this->fill_internal_(Color::BLACK);
-  delay(500);
   this->fill_internal_(ST7796colors::RED);
-  delay(500);
   this->fill_internal_(ST7796colors::GREEN);
-  delay(500);
   this->fill_internal_(ST7796colors::BLUE);
-  delay(500);
   this->fill_internal_(Color::WHITE);
 
 }
