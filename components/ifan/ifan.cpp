@@ -27,7 +27,7 @@ void IFan::setup() {
   }
 }
 void IFan::dump_config() { LOG_FAN("", "IFan", this); }
-fan::FanTraits IFan::get_traits() { return fan::FanTraits(false, true, false, 100); }
+fan::FanTraits IFan::get_traits() { return fan::FanTraits(false, true, false, 3); }
 void IFan::control(const fan::FanCall &call) {
   if (call.get_state().has_value())
     this->state = *call.get_state();
@@ -48,15 +48,15 @@ void IFan::write_state_() {
 
 void IFan::do_speed(const int lspeed){
     switch (lspeed) {
-      case 1 ... 33:
+      case 1:
          // low speed
         set_low();
         break;
-      case 34 ... 66:
+      case 2:
         // medium speed
         set_med();
         break;
-      case 67 ... 100:
+      case 3:
           // high speed
         set_high();
         break;
