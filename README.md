@@ -12,3 +12,9 @@ external_components:
     components: [ ifan ifan04 ]
 ```
 
+## My components 
+
+includes; 
+
+* ifan - provides simple support for the fan, buzzer, and light of an sonoff ifan04
+* st7796 - WIP - provides support for the st7796 display, currently not working
