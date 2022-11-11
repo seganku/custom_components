@@ -6,8 +6,8 @@ from esphome.const import CONF_ID
 
 DEPENDENCIES = ['uart']
 
-ifan04_ns = cg.esphome_ns.namespace('ifan04')
 
+ifan04_ns = cg.esphome_ns.namespace('ifan04')
 IFan04 = ifan04_ns.class_('IFan04', cg.Component, uart.UARTDevice)
 
 CONF_ON_FAN = "on_fan"

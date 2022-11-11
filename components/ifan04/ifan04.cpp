@@ -76,6 +76,8 @@ void IFan04::handle_command_(uint8_t type, uint8_t param) {
   }
   ESP_LOGD(TAG, "unknown command type %d param %d", type, param);
 }
+void IFan04::output(const float state){
 
+}
 }  // namespace ifan04
 }  // namespace esphome
